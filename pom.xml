@@ -13,6 +13,10 @@
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+        <maven.compiler.source>13</maven.compiler.source>
+        <maven.compiler.target>13</maven.compiler.target>
+        <maven.compiler.compilerVersion>14</maven.compiler.compilerVersion>
     </properties>
     <name>miaosha</name>
     <url>http://maven.apache.org</url>
@@ -146,7 +150,7 @@
             <version>1.2.38</version>
         </dependency>
 
-        <dependency>salt
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>
