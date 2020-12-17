@@ -23,6 +23,8 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -117,6 +119,12 @@ public class GoodsController extends BaseController {
         ResultGeekQ<GoodsDetailVo> result = ResultGeekQ.build();
         GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
         long startAt = goods.getStartDate().getTime();
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sdf.format(goods.getStartDate());
+        String format1 = sdf.format(goods.getEndDate());
+
+
+
         long endAt = goods.getEndDate().getTime();
         long now = System.currentTimeMillis();
         int miaoshaStatus = 0;

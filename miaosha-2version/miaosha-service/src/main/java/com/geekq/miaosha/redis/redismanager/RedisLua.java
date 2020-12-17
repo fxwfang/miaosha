@@ -61,7 +61,7 @@ public class RedisLua {
         List<String> keys = new ArrayList<String>();
         keys.add(key);
         List<String> argves = new ArrayList<String>();
-        jedis.auth("youxin11");
+        jedis.auth("123456");
         String luaScript = jedis.scriptLoad(count);
         System.out.println(luaScript);
         object = jedis.evalsha(luaScript, keys, argves);
@@ -86,12 +86,12 @@ public class RedisLua {
             List<String> keys = new ArrayList<String>();
             keys.add(key);
             List<String> argves = new ArrayList<String>();
-            jedis.auth("youxin11");
+            jedis.auth("123456");
             String luaScript = jedis.scriptLoad(count);
             System.out.println(luaScript);
             jedis.evalsha(luaScript, keys, argves);
         } catch (Exception e) {
-            logger.error("统计访问次数失败！！！",e);
+            logger.error("统计访问次数失败！！！`",e);
         }
     }
 
