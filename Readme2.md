@@ -99,7 +99,7 @@ https://blog.csdn.net/qq_21583077/article/details/88225728
 这次的报错主要原因： com.geekq.miaosha.redis.redismanager 的IP配置有问题
 
 
-# 坑 在Docker容器创建好之后，可能会发现容器时间跟宿主机时间不一致，此时需要同步它们的时间，让容器时间跟宿主机时间保持一致。
+### 坑 在Docker容器创建好之后，可能会发现容器时间跟宿主机时间不一致，此时需要同步它们的时间，让容器时间跟宿主机时间保持一致。
 https://www.cnblogs.com/qinlangsky/p/11698978.html
 主要式程序运行的时候，秒杀时间和自己存到数据库到时间不一致，最后尝试用now()插入时间，发现时间
 日期跟系统时间对不上，想到自己是用docker环境，就明白是docker时间有问题
@@ -107,3 +107,15 @@ https://www.cnblogs.com/qinlangsky/p/11698978.html
 /etc/localtime 只是一个link文件，还需要把真正的文件拷贝到容器里面
 a9990fdc2d:/# mkdir -vp /var/db/timezone/zoneinfo/Asia
 $ docker cp /var/db/timezone/zoneinfo/Asia/Shanghai 1ea9990fdc2d:/var/db/timezone/zoneinfo/Asia/Shanghai
+
+### 解决数据库时间相差14小时
+docker时间与宿主机时间一致，mysql的now()入库也是对的，但是查询出来的时间却相差14个小时。
+修改配置如下：
+```
+# com.mysql.jdbc.Driver 是 mysql-connector-java 5中的；
+# com.mysql.cj.jdbc.Driver 是 mysql-connector-java 6中的,需要设置时区。
+datasource:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://ip:port/drgs-engine?
+  useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+```

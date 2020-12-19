@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -121,7 +122,7 @@ public class GoodsController extends BaseController {
         long startAt = goods.getStartDate().getTime();
         SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sdf.format(goods.getStartDate());
-        String format1 = sdf.format(goods.getEndDate());
+        String format1 = sdf.format(new Date());
 
 
 
