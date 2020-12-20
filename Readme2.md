@@ -119,3 +119,14 @@ datasource:
   url: jdbc:mysql://ip:port/drgs-engine?
   useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
 ```
+
+### Aviator——轻量级Java表达式求值引擎
+https://developer.aliyun.com/article/608829
+引入原因：以下代码中 engine为null.
+```
+//			ScriptEngineManager manager = new ScriptEngineManager(null);
+//			ScriptEngine engine = manager.getEngineByName("JavaScript");
+//			Integer catch1 = (Integer)engine.eval(exp);
+//			return catch1.intValue();
+
+```

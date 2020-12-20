@@ -8,12 +8,12 @@ import com.geekq.miaosha.redis.RedisService;
 import com.geekq.miaosha.utils.MD5Utils;
 import com.geekq.miaosha.utils.UUIDUtil;
 import com.geekq.miaosha.vo.GoodsVo;
+import com.googlecode.aviator.AviatorEvaluator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
+import javax.script.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -112,7 +112,7 @@ public class MiaoshaService {
 		g.drawString(verifyCode, 8, 24);
 		g.dispose();
 		//把验证码存到redis中
-		int rnd = calc(verifyCode);
+		long rnd = calc(verifyCode);
 		redisService.set(MiaoshaKey.getMiaoshaVerifyCode, user.getNickname()+","+goodsId, rnd);
 		//输出图片
 		return image;
@@ -160,18 +160,19 @@ public class MiaoshaService {
 		g.drawString(verifyCode, 8, 24);
 		g.dispose();
 		//把验证码存到redis中
-		int rnd = calc(verifyCode);
+		long rnd = calc(verifyCode);
 		redisService.set(MiaoshaKey.getMiaoshaVerifyCodeRegister,"regitser",rnd);
 		//输出图片
 		return image;
 	}
 
-	private static int calc(String exp) {
+	private static long calc(String exp) {
 		try {
-			ScriptEngineManager manager = new ScriptEngineManager();
-			ScriptEngine engine = manager.getEngineByName("JavaScript");
-			Integer catch1 = (Integer)engine.eval(exp);
-			return catch1.intValue();
+//			ScriptEngineManager manager = new ScriptEngineManager(null);
+//			ScriptEngine engine = manager.getEngineByName("JavaScript");
+//			Integer catch1 = (Integer)engine.eval(exp);
+//			return catch1.intValue();
+			return (long)AviatorEvaluator.execute(exp);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return 0;
